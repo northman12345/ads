@@ -1,0 +1,33 @@
+
+   {% extends 'myapp/index.html' %}
+
+
+   {% block body %}
+<div class="container pad">
+       <div class="row">
+            <div class="col-md-4">
+                <div class="card shadow">
+                    <img src="{{seller.profile.image.url}}" alt="" width="50%" height="50%">
+
+                   <div class="card-body">
+                     <!-- <h4 class="card-title">  {{ seller.username}}</h4> -->
+                     
+                     <p>{{ seller.username}}</p>
+                     <p>{{ seller.profile.contact_number}}</p>
+
+                     
+
+                   </div>
+                 </div>
+                
+            <div class="col-md-6">
+                <!-- livofivhiof -->
+            </div>
+        </div>
+
+</div>
+   
+    {% endblock %}
+
+    
+

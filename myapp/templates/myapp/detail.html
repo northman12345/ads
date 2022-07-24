@@ -1,0 +1,44 @@
+
+   {% extends 'myapp/index.html' %}
+
+   {% block body %}
+<div class="container-fluid pad">
+       <div class="row">
+            <div class="col-md-6">
+                <div class="card shadow">
+                     <img class="card-img-top" src="{{product.image.url}}" alt="Card image">
+                    <div class="card-body">
+                      <h4 class="card-title">   {{product.name}}</h4>
+                      <p class="card-text text-danger">
+                        
+                          {{product.price}}
+                        
+                        </p>
+                      <p>{{product.desc}}</p>
+                      <p>Posted by:<a href="{%url 'users:sellerprofile' product.seller_name.id %}">{{product.seller_name}}</a> </p>
+                      <p>Contact Number: {{product.seller_name.profile.contact_number}}</p>
+                      <p>Email: {{product.seller_name.email}}</p>
+<form method="POST">
+  {% csrf_token %}
+
+  <button class="btn btn-success">checkout</button>
+  <input type="hidden" value=" {{product.id}}" name="product_id">
+  <input type="hidden" value=" {{product.seller_name.id}}" name="user_id">
+  <input type="hidden" value=" {{product.price}}" name="price">
+  <input type="hidden" value="{{product.seller_name.email}}" name="email">
+
+</form>
+                     
+                    </div>
+                  </div>
+             </div>
+            <div class="col-md-6">
+                <!-- livofivhiof -->
+            </div>
+        </div>
+
+</div>
+   <br>
+   <br>
+   
+    {% endblock %}

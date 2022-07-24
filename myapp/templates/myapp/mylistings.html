@@ -1,0 +1,66 @@
+
+   {% extends 'myapp/index.html' %}
+
+
+   {% block body %}
+   <div class="container-fluid pad">
+      <div class="row">
+           <div class="col-md-10">
+              <div>
+                 <h2>My Listings</h2>
+              </div>
+   {% for products in products%}
+   <div class="card shadow" style="margin-bottom: 10px;">
+   <div class="card-body ">
+      <table class="table table-borderless">
+        <tbody>
+
+         <tr>
+            <td> 
+               
+                 <img  src="{{products.image.url}}" alt="Card image" style="width: 25%;">
+            </td>
+            <td>
+<p>{{products.name}}</p>
+<p>{{products.price}}</p>
+            </td>
+            <td>
+               <a href="{% url 'myapp:update_product' products.id %}" class="btn btn-primary btn-sm">Edit</a>
+
+            </td>
+            <td>
+               <a href="{% url 'myapp:delete_product' products.id %}" class="btn btn-danger btn-sm">Delete</a>
+
+            </td>
+         </tr>
+        
+         
+        </tbody>
+        </table>
+
+
+           
+
+            
+
+           
+
+            
+      
+      
+
+        
+   
+   
+       
+       
+
+   </div>
+ </div>
+ {%endfor%}
+ <br><br>
+ </div>
+ </div>
+ </div>
+    {% endblock %}
+    

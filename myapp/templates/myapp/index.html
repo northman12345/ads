@@ -1,0 +1,216 @@
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+    <!-- <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css"> -->
+
+    <!-- <link rel="stylesheet" href="{% static 'myapp/bootstrap/css/fontawesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'myapp/bootstrap/css/jqueryscripttop.css' %}"  type="text/css"> -->
+
+    <link rel="stylesheet" href="{% static 'myapp/style.css' %}">
+
+    <link rel="stylesheet" href="{% static 'myapp/bootstrap/css/bootswatch.css' %}">
+    <link rel="stylesheet" href="{% static 'myapp/bootstrap/css/jquery.passwordRequirements.css' %}">
+    <link rel="stylesheet" href="{% static 'myapp/bootstrap/css/bootstrap.min.css' %}">
+
+
+  <script src="{% static 'myapp/bootstrap/js/jquery-3.6.0.min.js' %}"></script>
+  <script src="{% static 'myapp/bootstrap/js/jquery.passwordRequirements.min.js' %}"></script>
+  <script src="{% static 'myapp/bootstrap/js/bootstrap.min.js' %}"></script>
+
+
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-danger" aria-label="Ninth navbar example">
+    <div class="container-xl">
+      <a class="navbar-brand" href="#">ADS</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample07XL" aria-controls="navbarsExample07XL" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExample07XL">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'myapp:add_product'%}">Post Ads</a>
+          </li>
+
+          <li class="nav-item">
+
+            <a class="nav-link" href="{% url 'myapp:products'%}">View Products</a>
+          </li>
+          <li class="nav-item">
+            {% if user.is_authenticated %}
+
+            <a class="nav-link " href="{% url 'myapp:mylistings'%}">My Listings</a>
+          </li>
+          {% endif%}
+          {% if user.is_authenticated %}
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="dropdown07XL" data-bs-toggle="dropdown" aria-expanded="false">Setting</a>
+            <ul class="dropdown-menu" aria-labelledby="dropdown07XL">
+              <li>
+              <a href="{% url 'users:profile'%}" class="dropdown-item">Profile</a>
+              
+              <a href="{% url 'users:createprofile'%}" class="dropdown-item">Create Profile</a>
+
+
+            </ul>
+          </li>
+          {% endif %}
+
+          <li class="nav-item">
+            {% if user.is_authenticated %}
+            <a href="{% url 'users:logout'%}" class="nav-link">Logout</a>
+            {% else %}
+            <a href="{% url 'users:login'%}" class="nav-link">Login</a>
+
+            {% endif %}
+          </li>
+        </ul>
+        <form method="GET">
+          
+          <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="product_name">
+        </form>
+      </div>
+    </div>
+  </nav>
+    
+
+
+  {% block body %}
+      
+      <div class="container pad">
+        <div class="jumbotron">
+          <h1>Premium Products <span class="text-danger">Non-premium Prices </span></h1>      
+          <p>Get the best quality used products across the globe. Free shiping</p>
+        </div>
+              
+      </div>
+      <div class="container-fluid pad">
+        <h1 align="center">Recent Product</h1>    
+          <div class="row">
+        {% for products in page_obj %}
+
+        <div class="col-md-4 pad">
+
+          <div class="card shadow">
+            <a href="{% url 'myapp:product_detail' products.id %}"> <img class="card-img-top" src="{{ products.image.url }}" alt="Card image"></a>
+            <div class="card-body">
+              <h4 class="card-title">   {{products.name}}</h4>
+              <p class="card-text text-danger">{{products.price}}</p>
+              <a href="#" class="btn btn-primary">{{products.desc}}</a>
+            </div>
+          </div>
+      
+          
+
+
+        </div>
+
+
+        {% endfor %}
+
+      </div>
+<!-- pagination code -->
+
+      <div class="row pad2 pad3"  >
+
+          <ul class="pagination justify-content-center" >
+            {%if page_obj.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{page_obj.previous_page_number}}">Previous</a></li>
+           {% endif %}
+           <span>
+            <li class="page-item"><a class="page-link disable" href="" > page{{page_obj.number}}of {{page_obj.paginator.num_pages}}</a></li>
+           </span>
+           {% if page_obj.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{page_obj.next_page_number}}">Next</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{page_obj.paginator.num_pages}}">Last</a></li>
+            {%endif%}
+          </ul>
+
+        
+        
+
+      </div>
+      <br><br><br>
+      </div>
+
+      
+{% endblock %} 
+<nav class="navbar fixed-bottom navbar-expand-sm navbar-dark bg-danger justify-content-center" align="center">
+  <div class="container-fluid" >
+    <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample08" style="color: white;">
+
+    Copyright &copy;  2021-2022 | Ads.com.ng
+   </div>
+    
+  </div>
+</nav>
+
+<script>
+  /* trigger when page is ready */
+  $(document).ready(function (){
+      $(".pr-password").passwordRequirements({
+
+      });
+  });
+</script>
+<script type="text/javascript">
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-36251023-1']);
+_gaq.push(['_setDomainName', 'jqueryscript.net']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+</script>
+<script>
+try {
+fetch(new Request("https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js", { method: 'HEAD', mode: 'no-cors' })).then(function(response) {
+return true;
+}).catch(function(e) {
+var carbonScript = document.createElement("script");
+carbonScript.src = "//cdn.carbonads.com/carbon.js?serve=CK7DKKQU&placement=wwwjqueryscriptnet";
+carbonScript.id = "_carbonads_js";
+document.getElementById("carbon-block").appendChild(carbonScript);
+});
+} catch (error) {
+console.log(error);
+}
+</script>
+<script>
+  function checkPasswordMatch() {
+      var password = $("#mypassword").val();
+      var confirmPassword = $("#confirm_mypassword").val();
+      if (password != confirmPassword){
+          $("#CheckPasswordMatch").html("Passwords does not match!");
+          document.getElementById("register").disabled=true;
+
+      }else{
+
+          $("#CheckPasswordMatch").html("Passwords match.");
+          document.getElementById("register").disabled=false;
+      }
+  }
+  $(document).ready(function () {
+     $("#confirm_mypassword").keyup(checkPasswordMatch);
+  });
+  </script>
+</body>
+</html>

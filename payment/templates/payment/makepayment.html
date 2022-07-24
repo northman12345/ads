@@ -1,0 +1,64 @@
+<html lang="en">
+    {% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'myapp/bootstrap/css/bootstrap.min.css' %}">
+
+</head>
+<body>
+    <div class="container" style="margin-top: 70px;">
+<div class="row">
+    <div class="col-md-6">
+
+          
+
+            <div class=" card card-body">
+
+              <label for="email">{{order.amount}}</label>
+              <label for="email">{{order.email}}</label>
+                <script src="https://js.paystack.co/v1/inline.js"></script>
+              <button type="button" class="btn btn-success" onclick="payWithPayStack()" id="django-paystack-button">Make Payment</button>
+            </div>
+ 
+
+    </div>
+
+</div>
+</div>
+    
+<script>
+    function payWithPayStack(){
+    
+      let currency ="NGN";
+      let plan ="";
+      let ref = "{{order.ref}}"
+      let obj = {
+      
+        key:"pk_test_fe2ad984900799dad55b03d129791a29560986b8",
+        email:"{{order.email}}",
+        amount:"{{order.amount}}"* 100,
+        ref:ref,
+        callback:function(response){
+           window.location.href="{% url 'payment:verify' order.ref %}" ;
+        }
+    
+      }
+      if (Boolean(currency)){
+        obj.currency = currency.toUpperCase()
+      }
+      if (Boolean(plan)){
+        obj.plan = plan;
+      }
+      var handler = PaystackPop.setup(obj);
+      handler.openIframe();
+    }
+    
+    
+       </script>
+</body>
+
+</html>

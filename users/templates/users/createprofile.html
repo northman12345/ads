@@ -1,0 +1,45 @@
+
+   {% extends 'myapp/index.html' %}
+
+
+   {% block body %}
+<div class="container pad">
+       <div class="row">
+            <div class="col-md-4">
+                <h2>create Profile</h2>
+
+
+                <form method="POST" enctype="multipart/form-data" class="card card-body pad">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <label for="image">Choose image:</label>
+                        <input type="file" accept="image/*" class="form-control"  id="uploads" name="uploads" placeholder="upload Image">
+                      </div>
+
+                    <div class="form-group">
+                      <label for="email">Contact Number:</label>
+                      <input type="phone" class="form-control" placeholder="07012423214" id="contact" name="contact" minlength="11" required>
+                    </div>
+                    
+
+                      
+
+                     
+                      
+                    <div class="form-group pad">
+                    <button class="btn btn-danger" type="submit" name="addproduct" id="" value="Addproduct">Submit</button>
+                    </div>
+                </form>
+
+               
+                     
+             </div>
+            <div class="col-md-6">
+                <!-- livofivhiof -->
+            </div>
+        </div>
+
+</div>
+   
+    {% endblock %}
